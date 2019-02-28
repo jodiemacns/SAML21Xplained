@@ -1,0 +1,116 @@
+warning: LF will be replaced by CRLF in Debug/Makefile.
+The file will have its original line endings in your working directory.
+[1mdiff --git a/src/asf.h b/src/asf.h[m
+[1mindex 8b2c5db..eebadc5 100644[m
+[1m--- a/src/asf.h[m
+[1m+++ b/src/asf.h[m
+[36m@@ -98,6 +98,10 @@[m
+ #include <saml/sleepmgr.h>[m
+ #include <sleepmgr.h>[m
+ [m
+[32m+[m[32m// From module: TC - Timer Counter (Callback APIs)[m
+[32m+[m[32m#include <tc.h>[m
+[32m+[m[32m#include <tc_interrupt.h>[m
+[32m+[m
+ // From module: USB - Universal Serial Bus[m
+ #include <usb.h>[m
+ [m
+[1mdiff --git a/src/main.c b/src/main.c[m
+[1mindex 07e965b..968ed32 100644[m
+[1m--- a/src/main.c[m
+[1m+++ b/src/main.c[m
+[36m@@ -37,7 +37,6 @@[m [mint main (void)[m
+ {[m
+ 	system_init();[m
+ 	irq_initialize_vectors();[m
+[31m-	cpu_irq_enable();[m
+ 	udc_start();[m
+ 	[m
+ 	[m
+[36m@@ -80,4 +79,5 @@[m [mvoid my_callback_rx_notify(uint8_t port)[m
+ 	port_pin_set_output_level(LED_0_PIN, LED_0_ACTIVE);[m
+ 	rval = udi_cdc_getc();[m
+ 	udi_cdc_putc(rval);[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m}[m
+[41m+[m
+[1mdiff --git a/test1.cproj b/test1.cproj[m
+[1mindex 8a478c3..29e4680 100644[m
+[1m--- a/test1.cproj[m
+[1m+++ b/test1.cproj[m
+[36m@@ -20,210 +20,210 @@[m
+     <OverrideVtor>false</OverrideVtor>[m
+     <CacheFlash>true</CacheFlash>[m
+     <ProgFlashFromRam>true</ProgFlashFromRam>[m
+[31m-    <RamSnippetAddress />[m
+[32m+[m[32m    <RamSnippetAddress>0x20000000</RamSnippetAddress>[m
+     <UncachedRange />[m
+     <preserveEEPROM>true</preserveEEPROM>[m
+[31m-    <OverrideVtorValue />[m
+[32m+[m[32m    <OverrideVtorValue>exception_table</OverrideVtorValue>[m
+     <BootSegment>2</BootSegment>[m
+     <ResetRule>0</ResetRule>[m
+     <eraseonlaunchrule>0</eraseonlaunchrule>[m
+     <EraseKey />[m
+     <AsfFrameworkConfig>[m
+       <framework-data>[m
+[31m-        <options>[m
+[31m-          <option id="common.boards" value="Add" config="" content-id="Atmel.ASF" />[m
+[31m-          <option id="sam0.drivers.port" value="Add" config="" content-id="Atmel.ASF" />[m
+[31m-          <option id="sam0.drivers.system" value="Add" config="" content-id="Atmel.ASF" />[m
+[31m-          <option id="common.services.usb.class.device" value="Add" config="cdc" content-id="Atmel.ASF" />[m
+[31m-          <option id="common.applications.user_application.xplained_pro2" value="Add" config="" content-id="Atmel.ASF" />[m
+[31m-          <option id="common.utils" value="Add" config="" content-id="Atmel.ASF" />[m
+[31m-          <option id="sam0.utils.cmsis.saml21.source.template" value="Add" config="" content-id="Atmel.ASF" />[m
+[31m-        </options>[m
+[31m-        <configurations>[m
+[31m-          <configuration key="config.sam0.drivers.extint" value="callback" default="callback" content-id="Atmel.ASF" />[m
+[31m-        </configurations>[m
+[31m-        <files>[m
+[31m-          <file path="src/main.c" framework="" version="" source="common2/applications/xplained_pro_user_application/main.c" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/config/conf_board.h" framework="" version="" source="common2/applications/xplained_pro_user_application/saml21j18b_saml21_xplained_pro/config/conf_board.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/config/conf_clocks.h" framework="" version="" source="common2/applications/xplained_pro_user_application/saml21j18b_saml21_xplained_pro/config/conf_clocks.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/common/boards/board.h" framework="" version="" source="common/boards/board.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/common/utils/interrupt.h" framework="" version="" source="common/utils/interrupt.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/common/utils/interrupt/interrupt_sam_nvic.c" framework="" version="" source="common/utils/interrupt/interrupt_sam_nvic.c" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/common/utils/interrupt/interrupt_sam_nvic.h" framework="" version="" source="common/utils/interrupt/interrupt_sam_nvic.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/common/utils/parts.h" framework="" version="" source="common/utils/parts.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/boards/saml21_xplained_pro_b/board_init.c" framework="" version="" source="sam0/boards/saml21_xplained_pro_b/board_init.c" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/boards/saml21_xplained_pro_b/saml21_xplained_pro.h" framework="" version="" source="sam0/boards/saml21_xplained_pro_b/saml21_xplained_pro.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/port/port.c" framework="" version="" source="sam0/drivers/port/port.c" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/port/port.h" framework="" version="" source="sam0/drivers/port/port.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/port/quick_start/qs_port_basic.h" framework="" version="" source="sam0/drivers/port/quick_start/qs_port_basic.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/clock/clock.h" framework="" version="" source="sam0/drivers/system/clock/clock.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/clock/clock_saml21/clock.c" framework="" version="" source="sam0/drivers/system/clock/clock_saml21/clock.c" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/clock/clock_saml21/clock_config_check.h" framework="" version="" source="sam0/drivers/system/clock/clock_saml21/clock_config_check.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/clock/clock_saml21/clock_feature.h" framework="" version="" source="sam0/drivers/system/clock/clock_saml21/clock_feature.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/clock/clock_saml21/gclk.c" framework="" version="" source="sam0/drivers/system/clock/clock_saml21/gclk.c" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/clock/gclk.h" framework="" version="" source="sam0/drivers/system/clock/gclk.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/interrupt/system_interrupt.c" framework="" version="" source="sam0/drivers/system/interrupt/system_interrupt.c" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/interrupt/system_interrupt.h" framework="" version="" source="sam0/drivers/system/interrupt/system_interrupt.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/interrupt/system_interrupt_saml21/system_interrupt_features.h" framework="" version="" source="sam0/drivers/system/interrupt/system_interrupt_saml21/system_interrupt_features.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/pinmux/pinmux.c" framework="" version="" source="sam0/drivers/system/pinmux/pinmux.c" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/pinmux/pinmux.h" framework="" version="" source="sam0/drivers/system/pinmux/pinmux.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/pinmux/quick_start/qs_pinmux_basic.h" framework="" version="" source="sam0/drivers/system/pinmux/quick_start/qs_pinmux_basic.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/power/power_sam_l/power.h" framework="" version="" source="sam0/drivers/system/power/power_sam_l/power.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/reset/reset_sam_l/reset.h" framework="" version="" source="sam0/drivers/system/reset/reset_sam_l/reset.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/system.c" framework="" version="" source="sam0/drivers/system/system.c" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/drivers/system/system.h" framework="" version="" source="sam0/drivers/system/system.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/ac.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/ac.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/adc.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/adc.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/aes.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/aes.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/ccl.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/ccl.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/dac.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/dac.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/dmac.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/dmac.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/dsu.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/dsu.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/eic.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/eic.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/evsys.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/evsys.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/gclk.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/gclk.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/mclk.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/mclk.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/mtb.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/mtb.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/nvmctrl.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/nvmctrl.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/opamp.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/opamp.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/osc32kctrl.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/osc32kctrl.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/oscctrl.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/oscctrl.h" changed="False" content-id="Atmel.ASF" />[m
+[31m-          <file path="src/ASF/sam0/utils/cmsis/saml21/include_b/component/pac.h" framework="" version="" source="sam0/utils/cmsis/saml21/include_b/component/pac.h" changed="False" content-id="
