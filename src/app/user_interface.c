@@ -225,8 +225,6 @@ void startMenu(void)
 **/
 int toggleLED(unsigned char *pData, int length)
 {
-   userInterfacePrint("Todo Toggle the LED\n");
-
    if(!strncmp((char *)pData, "led ON", strlen("led ON")))
    {
       userInterfacePrint("::ON\n");
